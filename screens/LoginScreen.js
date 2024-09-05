@@ -56,8 +56,8 @@ const LoginScreen = () => {
         </View>
 
 
-        <View style={{ marginTop: 50 }}>
-          <Pressable style={styles.loginbtn}>
+        <View style={{ marginTop: 50 }} >
+          <Pressable style={styles.loginbtn} onPress={()=> navigation.navigate("Main")}>
             <Text style={{ textAlign: "center", fontSize: 16, color: "white", fontWeight: "bold" }}>Login</Text>
           </Pressable>
         </View>
