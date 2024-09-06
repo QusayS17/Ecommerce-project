@@ -7,7 +7,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Dropdown from '../components/dropdown';
 import ImageSlider from '../components/slider';
 import DealsList from '../components/DealsList';
-
+import Todaylist from '../components/Todaylist';
 const HomeScreen = () => {
   const [selectedLocation, setSelectedLocation] = useState('Baalbaek-2973'); // Default location
   const handlePressDeal = (deal) => {
@@ -218,10 +218,17 @@ const HomeScreen = () => {
 
         <Text style={{ padding: 10, fontSize: 18, fontWeight: 18, color: "#666666" }}>Trending Deals of the week</Text>
         <DealsList deals={deals} onPressDeal={handlePressDeal} />
+
         <Text style={{ height: 1, borderColor: "#D0D0D0", borderWidth: 2 }} />
 
         <Text style={{ padding: 10, fontSize: 18, fontWeight: "bold" }}>Today's Deals</Text>
+        <Todaylist offers={offers} />
+
+        <View>
+
+        </View>
       </ScrollView>
+      <Text style={{ height: 1, borderColor: "#D0D0D0", borderWidth: 2 }} />
     </SafeAreaView>
   );
 };
