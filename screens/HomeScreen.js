@@ -8,6 +8,7 @@ import Dropdown from '../components/dropdown';
 import ImageSlider from '../components/slider';
 import DealsList from '../components/DealsList';
 import Todaylist from '../components/Todaylist';
+import Productlist from "../components/Productlist";
 const HomeScreen = () => {
   const [selectedLocation, setSelectedLocation] = useState('Baalbaek-2973'); // Default location
   const handlePressDeal = (deal) => {
@@ -224,11 +225,17 @@ const HomeScreen = () => {
         <Text style={{ padding: 10, fontSize: 18, fontWeight: "bold" }}>Today's Deals</Text>
         <Todaylist offers={offers} />
 
-        <View>
-
-        </View>
-      </ScrollView>
+      
       <Text style={{ height: 1, borderColor: "#D0D0D0", borderWidth: 2 }} />
+      <Text style={{ padding: 10, fontSize: 18, fontWeight: "bold" }}>Our Products</Text>
+        <ScrollView>
+
+        <View>
+          <Productlist/>
+        </View>
+        </ScrollView>
+      </ScrollView>
+   
     </SafeAreaView>
   );
 };
