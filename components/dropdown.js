@@ -1,23 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, View, Text, FlatList, Pressable, TouchableOpacity } from 'react-native';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import styles from '../screens/styles/homescreenstyle'; 
+import styles from '../screens/styles/homescreenstyle';
 
-const Dropdown = ({ data, selectedLocation, setSelectedLocation }) => {
+const Dropdown = ({ data,
+   selectedValue,
+    setSelectedValue, 
+    displayKey, 
+    valueKey,
+     initialSelect , 
+     dropdownstyle,
+    icon}) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [placeholder, setPlaceholder] = useState(initialSelect);
 
-  const selectLocation = (location) => {
-    setSelectedLocation(location);
+  // Include initial select option in the data array
+  const extendedData = [{ [displayKey]: initialSelect, [valueKey]: null }, ...data];
+
+  useEffect(() => {
+    if (selectedValue && selectedValue[displayKey]) {
+      setPlaceholder(selectedValue[displayKey]);
+    } else {
+      setPlaceholder(initialSelect);
+    }
+  }, [selectedValue]);
+
+  const selectItem = (item) => {
+    if (item[valueKey] === null) {
+      // Handle reset
+      setSelectedValue(null);
+      setPlaceholder(initialSelect);
+    } else {
+      setSelectedValue(item);
+      setPlaceholder(item[displayKey]);
+    }
     setModalVisible(false);
   };
 
   return (
     <>
-      <Pressable style={styles.locationbar} onPress={() => setModalVisible(true)}>
-        <EvilIcons name="location" size={24} color="black" />
-        <Text style={styles.locationText}>Deliver to {selectedLocation}</Text>
-        <MaterialIcons name="keyboard-arrow-down" size={24} color="black" />
+      <Pressable style={[styles.locationbar , dropdownstyle]} onPress={() => setModalVisible(true)}>
+        {/* <EvilIcons name="location" size={24} color="black" /> */}
+        <Text style={styles.locationText}>{placeholder}</Text>
+        {icon && <MaterialIcons name={icon} size={24} color="black" style={styles.icon} />}
       </Pressable>
 
       <Modal
@@ -29,14 +55,14 @@ const Dropdown = ({ data, selectedLocation, setSelectedLocation }) => {
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
             <FlatList
-              data={data}
-              keyExtractor={(item) => item.id}
+              data={extendedData}
+              keyExtractor={(item) => item[valueKey]?.toString()}
               renderItem={({ item }) => (
                 <TouchableOpacity
                   style={styles.locationItem}
-                  onPress={() => selectLocation(item.name)}
+                  onPress={() => selectItem(item)}
                 >
-                  <Text style={styles.locationText}>{item.name}</Text>
+                  <Text style={styles.locationText}>{item[displayKey]}</Text>
                 </TouchableOpacity>
               )}
             />

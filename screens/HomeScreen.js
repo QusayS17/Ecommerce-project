@@ -11,6 +11,7 @@ import Todaylist from '../components/Todaylist';
 import Productlist from "../components/Productlist";
 const HomeScreen = () => {
   const [selectedLocation, setSelectedLocation] = useState('Baalbaek-2973'); // Default location
+  const [selectedItem , setSelectedItem] = useState("Select Category")
   const handlePressDeal = (deal) => {
     console.log("Pressed deal: ", deal);
 
@@ -189,6 +190,12 @@ const HomeScreen = () => {
       size: "8GB RAM, 128GB Storage",
     },
   ];
+  const [items, setItems] = useState([
+    { label: "Men's clothing", value: "men's clothing" },
+    { label: "jewelery", value: "jewelery" },
+    { label: "electronics", value: "electronics" },
+    { label: "women's clothing", value: "women's clothing" },
+  ]);
   return (
     <SafeAreaView style={{ paddingTop: Platform.OS === 'android' ? 40 : 0, backgroundColor: 'white', flex: 1 }}>
       <ScrollView>
@@ -200,11 +207,17 @@ const HomeScreen = () => {
         </View>
 
         <View>
-          <Dropdown
-            data={locations}
-            selectedLocation={selectedLocation}
-            setSelectedLocation={setSelectedLocation}
-          />
+        <Dropdown
+  data={locations}
+  selectedValue={selectedLocation}
+  setSelectedValue={setSelectedLocation}
+  displayKey="name"
+  valueKey="id"
+  initialSelect="Select Location"
+
+
+/>
+
         </View>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -229,6 +242,15 @@ const HomeScreen = () => {
       <Text style={{ height: 1, borderColor: "#D0D0D0", borderWidth: 2 }} />
       <Text style={{ padding: 10, fontSize: 18, fontWeight: "bold" }}>Our Products</Text>
         <ScrollView>
+        <Dropdown
+  data={items}
+  selectedValue={selectedItem}
+  setSelectedValue={setSelectedItem}
+  displayKey="label"
+  valueKey="value"
+  initialSelect="Select Category"
+  dropdownstyle={{}}
+/>
 
         <View>
           <Productlist/>
