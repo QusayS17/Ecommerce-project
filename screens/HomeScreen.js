@@ -214,8 +214,7 @@ const HomeScreen = () => {
   displayKey="name"
   valueKey="id"
   initialSelect="Select Location"
-
-
+  icon={"map"}
 />
 
         </View>
@@ -250,6 +249,7 @@ const HomeScreen = () => {
   valueKey="value"
   initialSelect="Select Category"
   dropdownstyle={{}}
+  icon={"category"}
 />
 
         <View>
