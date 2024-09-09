@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     color: '#00CED1',
     fontSize: 18,
   },
+  
 });
 
 export default styles;

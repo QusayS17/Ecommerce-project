@@ -33,6 +33,7 @@ const productlist = () => {
     if (!isEndReached && !isLoading) {
       setPage(prevPage => prevPage + 1); // Increment the page to get new items
       fetchData(); // Fetch the next set of 6 items
+
     }
   };
 

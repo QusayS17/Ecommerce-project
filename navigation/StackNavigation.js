@@ -10,6 +10,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import ProfileScreen from '../screens/ProfileScreen';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import ProductInfoscreen from '../screens/ProductInfoscreen';
 const StackNavigation = () => {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
@@ -79,6 +80,7 @@ const StackNavigation = () => {
         <Stack.Screen name="RegisterScreen" component={RegisterScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Main" component={BottomTabs} options={{ headerShown: false }} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="ProductInfo" component={ProductInfoscreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   )

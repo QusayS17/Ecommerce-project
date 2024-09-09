@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View, Pressable, Image, ActivityIndicator } from 'react-native';
 import React, { useState } from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-
+import { useNavigation } from '@react-navigation/native';
 const ProductItem = ({item}) => {
   const [loading, setLoading] = useState(true);
-
+  const navigation = useNavigation();
   return (
-    <Pressable style={styles.container}>
+    <Pressable style={styles.container} >
       {loading && <ActivityIndicator style={styles.loader} size="large" color="#0000ff" />}
       <Image
         style={styles.image}
