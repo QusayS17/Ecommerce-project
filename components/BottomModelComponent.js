@@ -23,7 +23,7 @@ const BottomModelComponent = ({ visible, onClose, locations, onLocationSelect , 
             </View>
             <View style={{ justifyContent: "space-between", flexDirection: "row", paddingBottom: 8 }}>
               <Text style={{ fontSize: 15, fontWeight: "bold", color: "#D0D0D0" }}>Saved Addresses</Text>
-              <TouchableOpacity >
+              <TouchableOpacity onPress={()=>{navigation.navigate("My Address");onClose() }}>
                 <Text style={{ fontSize: 15, fontWeight: "bold", color: "#AFEEEE" }}>Edit Addresses</Text>
               </TouchableOpacity>
             </View>

@@ -12,6 +12,7 @@ import ProfileScreen from '../screens/ProfileScreen';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ProductInfoscreen from '../screens/ProductInfoscreen';
 import AddressScreen from '../screens/AddressScreen';
+import MyAddress from '../screens/MyAddress';
 const StackNavigation = () => {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
@@ -83,6 +84,7 @@ const StackNavigation = () => {
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ProductInfo" component={ProductInfoscreen} options={{ headerShown: false }} />
         <Stack.Screen name="New Address" component={AddressScreen} options={{ headerShown: false ,  }} />
+        <Stack.Screen name="My Address" component={MyAddress} options={{ headerShown: false ,  }} />
       </Stack.Navigator>
     </NavigationContainer>
   )
