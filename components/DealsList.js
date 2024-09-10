@@ -1,17 +1,29 @@
 import React from "react";
-import { View, Image, Pressable, StyleSheet ,Text} from "react-native";
-
-const DealsList = ({ deals, onPressDeal }) => {
+import { View, Image, Pressable, StyleSheet, Text } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+const DealsList = ({ deals, }) => {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       {deals.map((item, index) => (
         <Pressable
+          onPress={() => navigation.navigate("ProductInfo", {
+            id: item.id,
+            title: item.title,
+            price: item?.price,
+            carouselImages: item.carouselImages,
+            color: item?.color,
+            size: item?.size,
+            oldPrice: item?.oldPrice,
+            item: item,
+
+          })}
           key={index}
           style={styles.pressable}
-          onPress={() => onPressDeal(item)}
+
         >
           <Image source={{ uri: item.image }} style={styles.image} />
-         
+
         </Pressable>
       ))}
     </View>

@@ -54,7 +54,57 @@ const styles = StyleSheet.create({
     color: '#00CED1',
     fontSize: 18,
   },
-  
+//   btnContainer: {
+//     position: 'absolute',
+//     bottom: 0,
+//     width: '100%',
+//     padding: 10,
+//     backgroundColor: 'white', // Adjust background if needed
+//     alignItems: 'center',
+//     shadowColor: '#000',
+//     shadowOffset: { width: 0, height: -3 },
+//     shadowOpacity: 0.2,
+//     shadowRadius: 4,
+//     elevation: 5,
+// },
+infoContainer: {
+  padding: 10,
+},
+title: {
+  fontSize: 15,
+  fontWeight: "500",
+},
+price: {
+  fontSize: 18,
+  fontWeight: "600",
+  marginTop: 6,
+},
+divider: {
+  height: 1,
+  borderColor: "#D0D0D0",
+  borderWidth: 1,
+},
+infoRow: {
+  flexDirection: "row",
+  alignItems: "center",
+  padding: 10,
+},
+infoLabel: {
+  fontWeight: "800",
+  marginTop: 4,
+},
+infoValue: {
+  fontWeight: "500",
+},
+btnContainer: {
+  padding: 10,
+  backgroundColor: 'white',
+  borderTopWidth: 1,
+  borderTopColor: '#D0D0D0',
+  position: 'absolute',
+  bottom: 0,
+  width: '100%',
+},
 });
 
 export default styles;

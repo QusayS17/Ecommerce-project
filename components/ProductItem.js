@@ -2,11 +2,25 @@ import { StyleSheet, Text, View, Pressable, Image, ActivityIndicator } from 'rea
 import React, { useState } from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
+import AddTocartbtn from './AddTocartbtn';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/CartReducer';
+
 const ProductItem = ({item}) => {
   const [loading, setLoading] = useState(true);
   const navigation = useNavigation();
+  const [addedToCart, setAddedToCart] = useState(false)
+  const dispatch = useDispatch();
+  const addItemToCart= (item)=>{
+setAddedToCart(true); 
+dispatch(addToCart(item));
+setTimeout(() => {
+  setAddedToCart(false)
+}, 6000)
+  }
   return (
-    <Pressable style={styles.container} >
+    <Pressable style={styles.container}  >
+      
       {loading && <ActivityIndicator style={styles.loader} size="large" color="#0000ff" />}
       <Image
         style={styles.image}
@@ -21,9 +35,7 @@ const ProductItem = ({item}) => {
 
       <Text style={{fontWeight:"800"}}>{item.rating.rate} <FontAwesome name="star" size={15} color="gold" /></Text>
       </View>
-      <Pressable style={{backgroundColor:"#AFEEEE" , padding:10 , borderRadius:20 , justifyContent:"center" , alignItems:"center" ,marginHorizontal:10 , marginTop:10 }}> 
-        <Text>Add to Cart</Text>
-      </Pressable>
+      <AddTocartbtn onPress={() => addItemToCart({ item })} addedToCart={addedToCart} />
     </Pressable>
   );
 

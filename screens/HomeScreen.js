@@ -1,4 +1,4 @@
-import { Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View, Image } from 'react-native';
+import { Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View, Image, Touchable } from 'react-native';
 import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
@@ -9,18 +9,20 @@ import ImageSlider from '../components/slider';
 import DealsList from '../components/DealsList';
 import Todaylist from '../components/Todaylist';
 import Productlist from "../components/Productlist";
+import { useSelector } from 'react-redux';
+import { BottomModal, ModalContent, SlideAnimation } from 'react-native-modals';
+import { TouchableOpacity } from 'react-native';
+import BottomModelComponent from '../components/BottomModelComponent';
+import LocationHeader from '../components/LocationHeader';
 const HomeScreen = () => {
-  const [selectedLocation, setSelectedLocation] = useState('Baalbaek-2973'); // Default location
-  const [selectedItem , setSelectedItem] = useState("Select Category")
-  const handlePressDeal = (deal) => {
-    console.log("Pressed deal: ", deal);
-
-  };
+  const [selectedLocation, setSelectedLocation] = useState({ name: 'Home', details: 'Al Solh Street 20-82' } ); 
+  const [selectedItem, setSelectedItem] = useState("Select Category")
+const  [ v , setv]=useState(0);
   const locations = [
-    { id: '1', name: 'Baalbaek-2973' },
-    { id: '2', name: 'Beirut-1107' },
-    { id: '3', name: 'Tripoli-4002' },
-    { id: '4', name: 'Zahle-2010' },
+    { id: '1', name: 'Home', details: " Al Solh Street 20-82" },
+    { id: '2', name: 'Work-zahle', details: " Street 67-28 2nd Floor" },
+    { id: '3', name: 'Triploi_Apartment', details: "Street 98-20 1st Floor" },
+    { id: '4', name: 'Douris-Office', details: "Street 67-27 3rd Floor" },
   ];
 
   const list = [
@@ -196,69 +198,99 @@ const HomeScreen = () => {
     { label: "electronics", value: "electronics" },
     { label: "women's clothing", value: "women's clothing" },
   ]);
-  return (
-    <SafeAreaView style={{ paddingTop: Platform.OS === 'android' ? 40 : 0, backgroundColor: 'white', flex: 1 }}>
-      <ScrollView>
-        <View style={{ backgroundColor: '#00CED1', padding: 10, flexDirection: 'row', alignItems: 'center' }}>
-          <Pressable style={styles.searchbar}>
-            <EvilIcons style={{ paddingLeft: 10 }} name="search" size={24} color="black" />
-            <TextInput placeholder='Search Items..' />
-          </Pressable>
-        </View>
 
-        <View>
-        <Dropdown
-  data={locations}
-  selectedValue={selectedLocation}
-  setSelectedValue={setSelectedLocation}
-  displayKey="name"
-  valueKey="id"
-  initialSelect="Select Location"
-  icon={"map"}
-/>
+  const cart = useSelector((state) => state.cart.cart);
+  const [ModalVisible, setModalVisible] = useState(false);
+  const openModal = () => {
+    setModalVisible(true);
+    
+  };
 
-        </View>
-
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {list.map((item, index) => (
-            <Pressable key={index} style={{ margin: 10, justifyContent: 'center', alignItems: 'center' }}>
-              <Image style={{ width: 50, height: 50 }} source={{ uri: item.image }} />
-              <Text style={{ textAlign: 'center', fontSize: 12, fontWeight: '500' }}>{item.name}</Text>
-            </Pressable>
-          ))}
-        </ScrollView>
-        <ImageSlider images={images} slideway={true} />
-
-        <Text style={{ padding: 10, fontSize: 18, fontWeight: 18, color: "#666666" }}>Trending Deals of the week</Text>
-        <DealsList deals={deals} onPressDeal={handlePressDeal} />
-
-        <Text style={{ height: 1, borderColor: "#D0D0D0", borderWidth: 2 }} />
-
-        <Text style={{ padding: 10, fontSize: 18, fontWeight: "bold" }}>Today's Deals</Text>
-        <Todaylist offers={offers} />
-
-      
-      <Text style={{ height: 1, borderColor: "#D0D0D0", borderWidth: 2 }} />
-      <Text style={{ padding: 10, fontSize: 18, fontWeight: "bold" }}>Our Products</Text>
-        <ScrollView>
-        <Dropdown
-  data={items}
-  selectedValue={selectedItem}
-  setSelectedValue={setSelectedItem}
-  displayKey="label"
-  valueKey="value"
-  initialSelect="Select Category"
-  dropdownstyle={{}}
-  icon={"category"}
-/>
-
-        <View>
-          <Productlist/>
-        </View>
-        </ScrollView>
-      </ScrollView>
+  const closeModal = () => {
+    setModalVisible(false);
    
-    </SafeAreaView>
+  };
+
+  const handleLocationSelect = (name, details) => {
+    setSelectedLocation({ name, details });
+    closeModal();
+  };
+
+  return (
+    <>
+      <SafeAreaView style={{ paddingTop: Platform.OS === 'android' ? 40 : 0, backgroundColor: 'white', flex: 1 }}>
+        <ScrollView>
+        <LocationHeader
+             selectedLocation={selectedLocation}
+             openModal={openModal}
+           
+          />
+
+
+          <View style={{ backgroundColor: '#E0F7F8', padding: 10, flexDirection: 'row', alignItems: 'center' }}>
+            <Pressable style={styles.searchbar}>
+              <EvilIcons style={{ paddingLeft: 10 }} name="search" size={24} color="black" />
+              <TextInput placeholder='Search Items..' />
+            </Pressable>
+          </View>
+
+          <View>
+
+
+          </View>
+
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            {list.map((item, index) => (
+              <Pressable key={index} style={{ margin: 10, justifyContent: 'center', alignItems: 'center' }}>
+                <Image style={{ width: 50, height: 50 }} source={{ uri: item.image }} />
+                <Text style={{ textAlign: 'center', fontSize: 12, fontWeight: '500' }}>{item.name}</Text>
+              </Pressable>
+            ))}
+          </ScrollView>
+          <ImageSlider images={images} slideway={true} />
+
+          <Text style={{ padding: 10, fontSize: 18, fontWeight: 18, color: "#666666" }}>Trending Deals of the week</Text>
+          <DealsList deals={deals} />
+
+          <Text style={{ height: 1, borderColor: "#D0D0D0", borderWidth: 2 }} />
+
+          <Text style={{ padding: 10, fontSize: 18, fontWeight: "bold" }}>Today's Deals</Text>
+          <Todaylist offers={offers} />
+
+
+          <Text style={{ height: 1, borderColor: "#D0D0D0", borderWidth: 2 }} />
+          <Text style={{ padding: 10, fontSize: 18, fontWeight: "bold" }}>Our Products</Text>
+          <ScrollView>
+            <Dropdown
+              data={items}
+              selectedValue={selectedItem}
+              setSelectedValue={setSelectedItem}
+              displayKey="label"
+              valueKey="value"
+              initialSelect="Select Category"
+              dropdownstyle={{}}
+              icon={"category"}
+            />
+
+            <View>
+              <Productlist />
+            </View>
+          </ScrollView>
+        </ScrollView>
+
+      </SafeAreaView>
+
+
+
+     <BottomModelComponent 
+      v={v}
+      visible={ModalVisible}
+      onClose={closeModal}
+      locations={locations}
+      onLocationSelect={handleLocationSelect}
+     />
+
+    </>
   );
 };
 

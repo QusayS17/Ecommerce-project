@@ -11,6 +11,7 @@ import AntDesign from '@expo/vector-icons/AntDesign';
 import ProfileScreen from '../screens/ProfileScreen';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import ProductInfoscreen from '../screens/ProductInfoscreen';
+import AddressScreen from '../screens/AddressScreen';
 const StackNavigation = () => {
   const Stack = createNativeStackNavigator();
   const Tab = createBottomTabNavigator();
@@ -81,6 +82,7 @@ const StackNavigation = () => {
         <Stack.Screen name="Main" component={BottomTabs} options={{ headerShown: false }} />
         <Stack.Screen name="ProfileScreen" component={ProfileScreen} options={{ headerShown: false }} />
         <Stack.Screen name="ProductInfo" component={ProductInfoscreen} options={{ headerShown: false }} />
+        <Stack.Screen name="New Address" component={AddressScreen} options={{ headerShown: false ,  }} />
       </Stack.Navigator>
     </NavigationContainer>
   )
