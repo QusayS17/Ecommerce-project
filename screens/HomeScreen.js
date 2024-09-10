@@ -14,6 +14,7 @@ import { BottomModal, ModalContent, SlideAnimation } from 'react-native-modals';
 import { TouchableOpacity } from 'react-native';
 import BottomModelComponent from '../components/BottomModelComponent';
 import LocationHeader from '../components/LocationHeader';
+import MyAddress from './MyAddress';
 const HomeScreen = () => {
   const [selectedLocation, setSelectedLocation] = useState({ name: 'Home', details: 'Al Solh Street 20-82' } ); 
   const [selectedItem, setSelectedItem] = useState("Select Category")
@@ -218,6 +219,7 @@ const  [ v , setv]=useState(0);
 
   return (
     <>
+   
       <SafeAreaView style={{ paddingTop: Platform.OS === 'android' ? 40 : 0, backgroundColor: 'white', flex: 1 }}>
         <ScrollView>
         <LocationHeader
@@ -274,6 +276,7 @@ const  [ v , setv]=useState(0);
 
             <View>
               <Productlist />
+
             </View>
           </ScrollView>
         </ScrollView>

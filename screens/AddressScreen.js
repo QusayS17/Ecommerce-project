@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Dimensions, SafeAreaView, TouchableOpacity, Text, ScrollView, TextInput, Pressable } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, Dimensions, SafeAreaView, TouchableOpacity, Text, ScrollView, TextInput } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -11,11 +11,25 @@ const buttonSize = (width - 40) / 3;
 const AddressScreen = () => {
     const iconSize = 24;
     const navigation = useNavigation();
+    const route = useRoute();
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [name, setName] = useState("");
     const [details, setDetails] = useState("");
     const [floor, setFloor] = useState("");
     const [phone, setPhone] = useState("");
+
+    useEffect(() => {
+        if (route.params?.item) {
+            const { name, details, floor, phone } = route.params.item;
+            console.log(name , details )
+            setName(name);
+            setDetails(details);
+            setFloor(floor);
+            setPhone(phone);
+           
+        }
+    }, [route.params?.item]);
+
     const handlePress = (index) => {
         setSelectedIndex(index); // Set the pressed button index
     };
@@ -23,12 +37,12 @@ const AddressScreen = () => {
     return (
         <SafeAreaView style={styles.safeArea}>
             <View style={styles.container}>
-            <View style={[styles.iconContainer, styles.topLeft]}>
-                    <View style={styles.iconCircle}>
-                         <TouchableOpacity onPress={() => navigation.navigate("Main")}>
+                <View style={[styles.iconContainer, styles.topLeft]}>
+                    <TouchableOpacity onPress={() => navigation.navigate("Main")}>
+                        <View style={styles.iconCircle}>
                             <AntDesign name="close" size={iconSize} color="black" />
-                        </TouchableOpacity>
-                    </View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
                 <Text style={styles.title}>New Address</Text>
             </View>
@@ -41,7 +55,7 @@ const AddressScreen = () => {
                         style={[
                             styles.button,
                             {
-                                backgroundColor: selectedIndex === 0 ? '#B2EBF2' : '#D3D3D3', // Default light gray, change on press
+                                backgroundColor: selectedIndex === 0 ? '#B2EBF2' : '#D3D3D3',
                                 borderColor: selectedIndex === 0 ? '#81D4FA' : '#B2EBF2',
                             }
                         ]}
@@ -99,18 +113,10 @@ const AddressScreen = () => {
                         placeholderTextColor="gray"
                     />
                 </View>
-
-
                 <View style={styles.inputRow}>
                     <View style={styles.inputContainer}>
-                    <View style={{ marginTop: 20 }}>
-                            <Text style={{
-                                color: 'black',
-                                fontSize: 18,
-                                fontWeight: 'bold',
-                                marginBottom:10,
-                                marginLeft:3,
-                            }}>Floor Number</Text>
+                        <View style={{ marginTop: 20 }}>
+                            <Text style={styles.label}>Floor Number</Text>
                         </View>
                         <TextInput
                             value={floor}
@@ -121,13 +127,7 @@ const AddressScreen = () => {
                     </View>
                     <View style={styles.inputContainer}>
                         <View style={{ marginTop: 20 }}>
-                            <Text style={{
-                                color: 'black',
-                                fontSize: 18,
-                                fontWeight: 'bold',
-                                marginBottom:10,
-                                marginLeft:3,
-                            }}>Phone Number</Text>
+                            <Text style={styles.label}>Phone Number</Text>
                         </View>
                         <TextInput
                             value={phone}
@@ -140,30 +140,28 @@ const AddressScreen = () => {
             </ScrollView>
 
             <View style={styles.container}>
-                <TouchableOpacity style={[styles.btndesign]} >
+                <TouchableOpacity style={styles.btndesign}>
                     <Text>Save Address</Text>
                 </TouchableOpacity>
             </View>
-
-
         </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     safeArea: {
-        flex: 1, // Ensure SafeAreaView takes the full height
-        backgroundColor: '#f8f8f8', // Set the background color to match the header
+        flex: 1,
+        backgroundColor: '#f8f8f8',
     },
     container: {
         marginTop: 30,
         width: '100%',
-        height: 60, // Adjusted height
+        height: 60,
         paddingHorizontal: 10,
-        backgroundColor: '#f8f8f8', // Set the background color to match the header
-        flexDirection: 'row', // Align items horizontally
-        alignItems: 'center', // Center items vertically
-        justifyContent: 'center', // Center items horizontally
+        backgroundColor: '#f8f8f8',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     iconContainer: {
         position: 'absolute',
@@ -174,7 +172,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         textAlign: 'center',
-        flex: 1, // Ensure title takes the remaining space
+        flex: 1,
     },
     selectText: {
         color: 'black',
@@ -190,19 +188,19 @@ const styles = StyleSheet.create({
     },
     button: {
         width: buttonSize,
-        height: buttonSize, // Ensures the button is square-like
-        borderRadius: 10, // Slightly rounded corners
+        height: buttonSize,
+        borderRadius: 10,
         borderWidth: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 5, // Vertical margin for spacing between rows
+        marginVertical: 5,
     },
     borderOfInputStyle: {
         marginTop: 30,
         alignItems: 'center',
     },
     textInput: {
-        width: width * 0.9, // Make TextInput responsive
+        width: width * 0.9,
         padding: 10,
         fontSize: 18,
         backgroundColor: '#F2F1FD',
@@ -217,7 +215,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
     },
-
     btnContainer: {
         padding: 10,
         justifyContent: 'center',
@@ -244,9 +241,9 @@ const styles = StyleSheet.create({
         borderColor: '#D3D3D3',
     },
     iconCircle: {
-        width: 36, // Adjust the width and height for the circle
+        width: 36,
         height: 36,
-        borderRadius: 18, // Half of width/height to make it circular
+        borderRadius: 18,
         backgroundColor: 'white',
         justifyContent: 'center',
         alignItems: 'center',
@@ -254,7 +251,14 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.3,
         shadowRadius: 4,
-        elevation: 2, // For Android shadow 
+        elevation: 2,
+    },
+    label: {
+        color: 'black',
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+        marginLeft: 3,
     },
 });
 
